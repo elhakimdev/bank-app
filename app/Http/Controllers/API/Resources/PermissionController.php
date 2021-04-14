@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\API\Resources;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\PermissionCollection;
+use App\Http\Resources\PermissionResource;
+use App\Models\Authorization\Permission;
 
 class PermissionController extends Controller
 {
@@ -14,7 +17,10 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            "message"   => "List Off All Permissions",
+            "data"      => new PermissionCollection(Permission::all())
+        ], 200);
     }
 
     /**
@@ -44,9 +50,12 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Permission $permission)
     {
-        //
+        return response()->json([
+            "message"   => "List Specified Permission By Its ID",
+            "data"      => new PermissionResource(Permission::findById($permission->id))
+        ]);
     }
 
     /**
