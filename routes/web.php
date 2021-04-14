@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\Resources\PermissionController;
+use App\Http\Controllers\API\Resources\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+Route::prefix('resources')->group(function () {
+    Route::resource('/policy/permissions', PermissionController::class);
+    Route::resource('/policy/roles',       RoleController::class);
 });
