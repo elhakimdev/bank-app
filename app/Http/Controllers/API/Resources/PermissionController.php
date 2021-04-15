@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\API\Resources;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PermissionCollection;
-use App\Http\Resources\PermissionResource;
+use App\Http\Requests\PermissionRequest;
 use App\Models\Authorization\Permission;
+use App\Http\Resources\PermissionResource;
+use App\Http\Resources\PermissionCollection;
 
 class PermissionController extends Controller
 {
@@ -39,9 +39,12 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PermissionRequest $request)
     {
-        //
+        Permission::create($request->validated());
+        return response()->json([
+            "message" => "The new permission was uccesfully saved"
+        ], 200);
     }
 
     /**
@@ -53,9 +56,9 @@ class PermissionController extends Controller
     public function show(Permission $permission)
     {
         return response()->json([
-            "message"   => "List Specified Permission By Its ID",
-            "data"      => new PermissionResource(Permission::findById($permission->id))
-        ]);
+            "message"           => "List Specified Permission By Its ID",
+            "data"              => new PermissionResource(Permission::findById($permission->id))
+        ], 200);
     }
 
     /**
@@ -76,9 +79,12 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PermissionRequest $request, Permission $permission)
     {
-        //
+        Permission::where('id', $permission->id)->update($request->validated());
+        return response()->json([
+            "message"   => "Succes",
+        ], 200);
     }
 
     /**
@@ -87,8 +93,11 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Permission $permission)
     {
-        //
+        $permission->destroy($permission->id);
+        return response()->json([
+            "message"   => "Succes Destroy",
+        ], 200);
     }
 }
