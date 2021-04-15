@@ -7,9 +7,11 @@ use App\Http\Requests\PermissionRequest;
 use App\Models\Authorization\Permission;
 use App\Http\Resources\PermissionResource;
 use App\Http\Resources\PermissionCollection;
+use App\Traits\ApiResponser;
 
 class PermissionController extends Controller
 {
+    use ApiResponser;
     /**
      * Display a listing of the resource.
      *
@@ -17,10 +19,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return response()->json([
-            "message"   => "List Off All Permissions",
-            "data"      => new PermissionCollection(Permission::all())
-        ], 200);
+        return $this->success(new PermissionCollection(Permission::all()), 'List Of All Permission', 200);
     }
 
     /**
@@ -41,10 +40,7 @@ class PermissionController extends Controller
      */
     public function store(PermissionRequest $request)
     {
-        Permission::create($request->validated());
-        return response()->json([
-            "message" => "The new permission was uccesfully saved"
-        ], 200);
+        return $this->success(Permission::create($request->validated()), 'The new permission was uccesfully saved', 200);
     }
 
     /**
@@ -55,10 +51,7 @@ class PermissionController extends Controller
      */
     public function show(Permission $permission)
     {
-        return response()->json([
-            "message"           => "List Specified Permission By Its ID",
-            "data"              => new PermissionResource(Permission::findById($permission->id))
-        ], 200);
+        return $this->success(new PermissionResource(Permission::findById($permission->id)), 'List Specified Permission By Its ID', 200);
     }
 
     /**
@@ -81,10 +74,7 @@ class PermissionController extends Controller
      */
     public function update(PermissionRequest $request, Permission $permission)
     {
-        Permission::where('id', $permission->id)->update($request->validated());
-        return response()->json([
-            "message"   => "Succes",
-        ], 200);
+        return $this->success(Permission::where('id', $permission->id)->update($request->validated()), 'successfully updating specified permission', 200);
     }
 
     /**
@@ -95,9 +85,6 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission)
     {
-        $permission->destroy($permission->id);
-        return response()->json([
-            "message"   => "Succes Destroy",
-        ], 200);
+        return $this->success($permission->destroy($permission->id), 'successfully destroy/deleted given permission', 200);
     }
 }
