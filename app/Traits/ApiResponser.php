@@ -2,12 +2,22 @@
 
 namespace App\Traits;
 
+use Illuminate\Http\JsonResponse;
+
 /**
  * Trait to send response as json 
  */
 trait ApiResponser
 {
-       protected function success($data, $message = null, $code = null)
+       /**
+        * Undocumented function
+        *
+        * @param [type] $data
+        * @param string $message
+        * @param integer $code
+        * @return \Illuminate\Http\JsonResponse
+        */
+       protected function success($data, string $message = null, int $code = null): JsonResponse
        {
               return response()->json([
                      "Status"      => "Success",
@@ -15,7 +25,14 @@ trait ApiResponser
                      "data"        => $data
               ], $code);
        }
-       protected function error($message = null, $code)
+       /**
+        * get error response as JSON object
+        *
+        * @param string $message
+        * @param integer $code
+        * @return JsonResponse
+        */
+       protected function error(string $message = null, int $code): JsonResponse
        {
               return response()->json([
                      "Status"      => "An error Occurs",

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\API\Resources;
 
-use App\Http\Controllers\Controller;
+use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
+    use ApiResponser;
     /**
      * Display a listing of the resource.
      *
