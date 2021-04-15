@@ -32,11 +32,12 @@ trait ApiResponser
         * @param integer $code
         * @return JsonResponse
         */
-       protected function error(string $message = null, int $code): JsonResponse
+       protected function error(string $message = null, int $code, &$errors = null): JsonResponse
        {
               return response()->json([
-                     "Status"      => "An error Occurs",
+                     "Status"      => "Error",
                      "Message"     => $message,
+                     "Errors"      => $errors
               ], $code);
        }
 }
