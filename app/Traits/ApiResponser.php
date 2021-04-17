@@ -73,7 +73,7 @@ trait ApiResponser
                             break;
                      default:
                             # code...
-                            return 'please set metho type and resource type';
+                            return 'please set method type and resource type';
                             break;
               }
        }

@@ -20,7 +20,7 @@ class RoleController extends Controller
      */
     public function index(): JsonResponse
     {
-        return $this->success(new RoleCollection(Role::all()), 'Lst Of All Available Role', 200);
+        return $this->success(new RoleCollection(Role::all()), $this->message('index', 'Role'), 200);
     }
 
     /**
@@ -41,7 +41,7 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request): JsonResponse
     {
-        return $this->success(Role::create($request->validated()), 'The new permission was uccesfully saved', 200);
+        return $this->success(Role::create($request->validated()), $this->message('store', 'Role'), 200);
     }
 
     /**
@@ -52,7 +52,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        return $this->success(new RoleResource(Role::findById($role->id)), 'List Of Specified Role BY Its ID', 200);
+        return $this->success(new RoleResource(Role::findById($role->id)), $this->message('show', 'Role'), 200);
     }
 
     /**
@@ -75,7 +75,7 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, Role $role)
     {
-        return $this->success(Role::where('id', $role->id)->update($request->validated()), 'successfully updating specified role', 200);
+        return $this->success(Role::where('id', $role->id)->update($request->validated()), $this->message('update', 'Role'), 200);
     }
 
     /**
@@ -86,6 +86,6 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        return $this->success($role->destroy($role->id), 'successfully delete specified role', 200);
+        return $this->success($role->destroy($role->id), $this->message('destroy', 'Role'), 200);
     }
 }
