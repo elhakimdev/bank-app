@@ -52,7 +52,7 @@ class PermissionController extends Controller
      */
     public function show(Permission $permission): JsonResponse
     {
-        return $this->success(new PermissionResource(Permission::findById($permission->id)), $this->message('show', 'Permission'), 200);
+        return $this->success(new PermissionResource($permission), $this->message('show', 'Permission'), 200);
     }
 
     /**
@@ -75,7 +75,7 @@ class PermissionController extends Controller
      */
     public function update(PermissionRequest $request, Permission $permission): JsonResponse
     {
-        return $this->success(Permission::where('id', $permission->id)->update($request->validated()), $this->message('update', 'Permission'), 200);
+        return $this->success($permission->update($request->validated()), $this->message('update', 'Permission'), 200);
     }
 
     /**
@@ -86,6 +86,6 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission): JsonResponse
     {
-        return $this->success($permission->destroy($permission->id), $this->message('destroy', 'Permission'), 200);
+        return $this->success($permission->delete(), $this->message('destroy', 'Permission'), 200);
     }
 }

@@ -22,7 +22,7 @@ class RoleResource extends JsonResource
             "created_at"                => date_format($this->created_at, 'D-M-Y h:i:s'),
             "updated_at"                => date_format($this->updated_at, 'D-M-Y h:i:s'),
             "relations"                     => [
-                "assigned_permissions"      => new PermissionCollection($this->permissions)
+                "assigned_permissions"      => new PermissionCollection($this->whenLoaded('permissions'))
             ]
         ];
     }

@@ -52,7 +52,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        return $this->success(new RoleResource(Role::findById($role->id)), $this->message('show', 'Role'), 200);
+        return $this->success(new RoleResource($role->load('permissions')), $this->message('show', 'Role'), 200);
     }
 
     /**
