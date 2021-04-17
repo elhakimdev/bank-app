@@ -18,10 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/token', function () {
-    echo csrf_token();
-});
-Route::prefix('resources')->group(function () {
-    Route::resource('/policy/permissions', PermissionController::class);
-    Route::resource('/policy/roles',       RoleController::class);
-});
+// Route::get('/token', function () {
+//     echo csrf_token();
+// });
+// Route::prefix('resources')->group(function () {
+//     Route::resource('/policy/permissions', PermissionController::class);
+//     Route::resource('/policy/roles',       RoleController::class);
+// });

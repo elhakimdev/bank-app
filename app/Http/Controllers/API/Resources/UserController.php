@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\API\Resources;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UserRequest;
-use App\Http\Resources\UserCollection;
-use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Traits\ApiResponser;
-use Illuminate\Http\Request;
+use App\Http\Requests\UserRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCollection;
+use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
@@ -16,9 +16,9 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         return $this->success(new UserCollection(User::all()), $this->message('index', 'User'), 200);
     }
@@ -36,10 +36,10 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\UserRequest  $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(UserRequest $request)
+    public function store(UserRequest $request): JsonResponse
     {
         return $this->success(User::create($request->validated()), $this->message('store', 'User'), 200);
     }
@@ -48,11 +48,11 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(User $user)
+    public function show(User $user): JsonResponse
     {
-        return $this->success(new UserResource(User::findOrFail($user->id)), $this->message('show', 'User'), 200);
+        return $this->success(new UserResource(User::with('roles', 'permissions')->findOrFail($user->id)), $this->message('show', 'User'), 200);
     }
 
     /**
@@ -69,11 +69,11 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UserRequest  $request
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request, User $user): JsonResponse
     {
         return $this->success(User::findOrFail($user->id)->update($request->validated()), $this->message('update', 'User'), 200);
     }
@@ -82,9 +82,9 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(User $user)
+    public function destroy(User $user): JsonResponse
     {
         return $this->success(User::destroy($user->id), $this->message('destroy', 'User'), 200);
     }

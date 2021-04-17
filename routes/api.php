@@ -24,4 +24,10 @@ Route::prefix('resources')->group(function () {
     Route::resource('/policy/permissions',  PermissionController::class);
     Route::resource('/policy/roles',        RoleController::class);
     Route::resource('/users',               UserController::class);
+    Route::prefix('actions')->group(function () {
+        Route::post('user/assign-role');
+        Route::post('user/assign-direct-permission');
+        Route::post('role/assign-user');
+        Route::post('role/assign-permission');
+    });
 });
