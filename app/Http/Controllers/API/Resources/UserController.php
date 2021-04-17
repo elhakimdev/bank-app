@@ -4,11 +4,12 @@ namespace App\Http\Controllers\API\Resources;
 
 use App\Models\User;
 use App\Traits\ApiResponser;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserCollection;
-use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
@@ -20,7 +21,7 @@ class UserController extends Controller
      */
     public function index(): JsonResponse
     {
-        return $this->success(new UserCollection(User::all()), $this->message('index', 'User'), 200);
+        return $this->success(new UserCollection(User::all()), $this->message('index', 'User'), Response::HTTP_OK);
     }
 
     /**
@@ -41,7 +42,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request): JsonResponse
     {
-        return $this->success(User::create($request->validated()), $this->message('store', 'User'), 200);
+        return $this->success(User::create($request->validated()), $this->message('store', 'User'), Response::HTTP_CREATED);
     }
 
     /**
@@ -52,7 +53,7 @@ class UserController extends Controller
      */
     public function show(User $user): JsonResponse
     {
-        return $this->success(new UserResource($user->load('roles.permissions', 'permissions')), $this->message('show', 'User'), 200);
+        return $this->success(new UserResource($user->load('roles.permissions', 'permissions')), $this->message('show', 'User'), Response::HTTP_OK);
     }
 
     /**
@@ -75,7 +76,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user): JsonResponse
     {
-        return $this->success($user->update($request->validated()), $this->message('update', 'User'), 200);
+        return $this->success($user->update($request->validated()), $this->message('update', 'User'), Response::HTTP_OK);
     }
 
     /**
@@ -86,6 +87,6 @@ class UserController extends Controller
      */
     public function destroy(User $user): JsonResponse
     {
-        return $this->success($user->delete(), $this->message('destroy', 'User'), 200);
+        return $this->success($user->delete(), $this->message('destroy', 'User'), Response::HTTP_OK);
     }
 }

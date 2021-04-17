@@ -9,6 +9,7 @@ use App\Http\Requests\RoleRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\RoleResource;
 use App\Http\Resources\RoleCollection;
+use Symfony\Component\HttpFoundation\Response;
 
 class RoleController extends Controller
 {
@@ -20,7 +21,7 @@ class RoleController extends Controller
      */
     public function index(): JsonResponse
     {
-        return $this->success(new RoleCollection(Role::all()), $this->message('index', 'Role'), 200);
+        return $this->success(new RoleCollection(Role::all()), $this->message('index', 'Role'), Response::HTTP_OK);
     }
 
     /**
@@ -41,7 +42,7 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request): JsonResponse
     {
-        return $this->success(Role::create($request->validated()), $this->message('store', 'Role'), 200);
+        return $this->success(Role::create($request->validated()), $this->message('store', 'Role'), Response::HTTP_CREATED);
     }
 
     /**
@@ -52,7 +53,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        return $this->success(new RoleResource($role->load('permissions')), $this->message('show', 'Role'), 200);
+        return $this->success(new RoleResource($role->load('permissions')), $this->message('show', 'Role'), Response::HTTP_OK);
     }
 
     /**
@@ -75,7 +76,7 @@ class RoleController extends Controller
      */
     public function update(RoleRequest $request, Role $role)
     {
-        return $this->success(Role::where('id', $role->id)->update($request->validated()), $this->message('update', 'Role'), 200);
+        return $this->success(Role::where('id', $role->id)->update($request->validated()), $this->message('update', 'Role'), Response::HTTP_OK);
     }
 
     /**
@@ -86,6 +87,6 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        return $this->success($role->destroy($role->id), $this->message('destroy', 'Role'), 200);
+        return $this->success($role->destroy($role->id), $this->message('destroy', 'Role'), Response::HTTP_OK);
     }
 }

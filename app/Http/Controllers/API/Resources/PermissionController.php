@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\API\Resources;
 
 use App\Traits\ApiResponser;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PermissionRequest;
 use App\Models\Authorization\Permission;
 use App\Http\Resources\PermissionResource;
 use App\Http\Resources\PermissionCollection;
-use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class PermissionController extends Controller
 {
@@ -20,7 +21,7 @@ class PermissionController extends Controller
      */
     public function index(): JsonResponse
     {
-        return $this->success(new PermissionCollection(Permission::all()), $this->message('index', 'Permission'), 200);
+        return $this->success(new PermissionCollection(Permission::all()), $this->message('index', 'Permission'), Response::HTTP_OK);
     }
 
     /**
@@ -41,7 +42,7 @@ class PermissionController extends Controller
      */
     public function store(PermissionRequest $request): JsonResponse
     {
-        return $this->success(Permission::create($request->validated()), $this->message('store', 'Permission'), 200);
+        return $this->success(Permission::create($request->validated()), $this->message('store', 'Permission'), Response::HTTP_CREATED);
     }
 
     /**
@@ -52,7 +53,7 @@ class PermissionController extends Controller
      */
     public function show(Permission $permission): JsonResponse
     {
-        return $this->success(new PermissionResource($permission), $this->message('show', 'Permission'), 200);
+        return $this->success(new PermissionResource($permission), $this->message('show', 'Permission'), Response::HTTP_OK);
     }
 
     /**
@@ -75,7 +76,7 @@ class PermissionController extends Controller
      */
     public function update(PermissionRequest $request, Permission $permission): JsonResponse
     {
-        return $this->success($permission->update($request->validated()), $this->message('update', 'Permission'), 200);
+        return $this->success($permission->update($request->validated()), $this->message('update', 'Permission'), Response::HTTP_OK);
     }
 
     /**
@@ -86,6 +87,6 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission): JsonResponse
     {
-        return $this->success($permission->delete(), $this->message('destroy', 'Permission'), 200);
+        return $this->success($permission->delete(), $this->message('destroy', 'Permission'), Response::HTTP_OK);
     }
 }
