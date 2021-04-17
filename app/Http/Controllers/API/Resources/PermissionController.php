@@ -20,7 +20,7 @@ class PermissionController extends Controller
      */
     public function index(): JsonResponse
     {
-        return $this->success(new PermissionCollection(Permission::all()), 'List Of All Permission', 200);
+        return $this->success(new PermissionCollection(Permission::all()), $this->message('index', 'Permission'), 200);
     }
 
     /**
@@ -41,7 +41,7 @@ class PermissionController extends Controller
      */
     public function store(PermissionRequest $request): JsonResponse
     {
-        return $this->success(Permission::create($request->validated()), 'The new permission was uccesfully saved', 200);
+        return $this->success(Permission::create($request->validated()), $this->message('store', 'Permission'), 200);
     }
 
     /**
@@ -52,7 +52,7 @@ class PermissionController extends Controller
      */
     public function show(Permission $permission): JsonResponse
     {
-        return $this->success(new PermissionResource(Permission::findById($permission->id)), 'List Specified Permission By Its ID', 200);
+        return $this->success(new PermissionResource(Permission::findById($permission->id)), $this->message('show', 'Permission'), 200);
     }
 
     /**
@@ -71,11 +71,11 @@ class PermissionController extends Controller
      *
      * @param \App\Http\Requests\PermissionRequest $request
      * @param \App\Models\Authorization\Permission $permission
-     * @return JsonResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(PermissionRequest $request, Permission $permission): JsonResponse
     {
-        return $this->success(Permission::where('id', $permission->id)->update($request->validated()), 'successfully updating specified permission', 200);
+        return $this->success(Permission::where('id', $permission->id)->update($request->validated()), $this->message('update', 'Permission'), 200);
     }
 
     /**
@@ -86,6 +86,6 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission): JsonResponse
     {
-        return $this->success($permission->destroy($permission->id), 'successfully delete given permission', 200);
+        return $this->success($permission->destroy($permission->id), $this->message('destroy', 'Permission'), 200);
     }
 }
