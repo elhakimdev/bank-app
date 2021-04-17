@@ -29,5 +29,7 @@ class PermissionSeeder extends Seeder
         /**admin */
         Permission::create(['name' => 'delete']);
         /**admin */
+        Permission::create(['name' => 'restore']);
+        /**admin */
     }
 }
