@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Resources\PermissionController;
 use App\Http\Controllers\API\Resources\RoleController;
+use App\Http\Controllers\API\Resources\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,5 +23,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::prefix('resources')->group(function () {
     Route::resource('/policy/permissions',  PermissionController::class);
     Route::resource('/policy/roles',        RoleController::class);
-    Route::resource('/users',               RoleController::class);
+    Route::resource('/users',               UserController::class);
 });
