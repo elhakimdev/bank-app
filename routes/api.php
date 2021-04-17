@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::prefix('resources')->group(function () {
-    Route::resource('/policy/permissions', PermissionController::class);
-    Route::resource('/policy/roles',       RoleController::class);
+    Route::resource('/policy/permissions',  PermissionController::class);
+    Route::resource('/policy/roles',        RoleController::class);
+    Route::resource('/users',               RoleController::class);
 });
