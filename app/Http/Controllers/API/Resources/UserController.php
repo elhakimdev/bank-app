@@ -52,7 +52,7 @@ class UserController extends Controller
      */
     public function show(User $user): JsonResponse
     {
-        return $this->success(new UserResource(User::with('roles', 'permissions')->findOrFail($user->id)), $this->message('show', 'User'), 200);
+        return $this->success(new UserResource($user->load('roles', 'permissions')), $this->message('show', 'User'), 200);
     }
 
     /**
@@ -75,7 +75,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user): JsonResponse
     {
-        return $this->success(User::findOrFail($user->id)->update($request->validated()), $this->message('update', 'User'), 200);
+        return $this->success($user->update($request->validated()), $this->message('update', 'User'), 200);
     }
 
     /**
@@ -86,6 +86,6 @@ class UserController extends Controller
      */
     public function destroy(User $user): JsonResponse
     {
-        return $this->success(User::destroy($user->id), $this->message('destroy', 'User'), 200);
+        return $this->success($user->delete(), $this->message('destroy', 'User'), 200);
     }
 }
