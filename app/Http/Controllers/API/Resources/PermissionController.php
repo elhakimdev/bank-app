@@ -86,6 +86,6 @@ class PermissionController extends Controller
      */
     public function destroy(Permission $permission): JsonResponse
     {
-        return $this->success($permission->destroy($permission->id), 'successfully destroy/deleted given permission', 200);
+        return $this->success($permission->destroy($permission->id), 'successfully delete given permission', 200);
     }
 }
