@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\API\Actions\Roles\RoleActionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\Resources\PermissionController;
 use App\Http\Controllers\API\Resources\RoleController;
 use App\Http\Controllers\API\Resources\UserController;
+use App\Http\Controllers\API\Resources\PermissionController;
+use App\Http\Controllers\API\Actions\Roles\RoleActionController;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
