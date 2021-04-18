@@ -30,7 +30,7 @@ class RoleService implements RoleServiceInterface
        /**
         * set model property
         *
-        * @param [type] $model
+        * @param object $model
         * @return void
         */
        public function model(object $model): object
@@ -42,7 +42,7 @@ class RoleService implements RoleServiceInterface
        /**
         * set role property
         *
-        * @param [type] $role
+        * @param object $role
         * @return void
         */
        public function role($role)

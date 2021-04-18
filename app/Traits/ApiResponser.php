@@ -30,7 +30,7 @@ trait ApiResponser
         *
         * @param string $message
         * @param integer $code
-        * @return JsonResponse
+        * @return  \Illuminate\Http\JsonResponse
         */
        protected function error(string $message = null, int $code, &$errors = null): JsonResponse
        {
