@@ -2,6 +2,7 @@
 
 namespace App\Services\Spatie\Roles;
 
+use App\Services\Spatie\Config;
 
 class RoleService implements RoleServiceInterface
 {
@@ -61,17 +62,23 @@ class RoleService implements RoleServiceInterface
        public function handler(string $method, object $model = null, object $role = null)
        {
               switch ($method) {
-                     case 'assign-user':
+                     case Config::ASSIGN_USER:
                             if ($model == null && $role == null) {
                                    return $this->model->assignRole($this->role);
                             }
                             return $model->assignRole($this->getRole($role));
                             break;
-                     case 'remove-user':
+                     case Config::REMOVE_USER:
                             if ($model == null && $role == null) {
                                    return $this->model->removeRole($this->role);
                             }
                             return $model->removeRole($this->getRole($role));
+                            break;
+                     case Config::SYNCHRONIZE_USER:
+                            if ($model == null && $role == null) {
+                                   return $this->model->syncRole($this->role);
+                            }
+                            return $model->syncRole($this->getRole($role));
                             break;
                      default:
                             return 'no action ';
