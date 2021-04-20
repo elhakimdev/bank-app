@@ -3,29 +3,60 @@
 namespace App\Services\Spatie\Permissions;
 
 use App\Services\Spatie\Config;
+use App\Services\Spatie\Service;
 
-class PermissionService implements PermissionServiceInterface
+class PermissionService extends Service implements PermissionServiceInterface
 {
-       public $model;
+       /**
+        * Instance A permission
+        *
+        * @var [type]
+        */
        public $permission;
-       public function getModel(object $model): object
-       {
-              return $model->id;
-       }
+
+       /**
+        * 
+        *
+        * @param object $permission
+        * @return object
+        */
        public function getPermission(object $permission): object
        {
               return $permission->id;
        }
+
+       /**
+        * 
+        *
+        * @param object $model
+        * @return object
+        */
        public function model(object $model): object
        {
               $this->model = $model;
               return $this;
        }
+
+       /**
+        * Undocumented function
+        *
+        * @param object $permission
+        * @return object
+        */
        public function permission(object $permission): object
        {
               $this->permission = $permission;
               return $this;
        }
+
+       /**
+        * 
+        *
+        * @param string $method
+        * @param object $model
+        * @param object $permission
+        * @return void
+        */
        public function handler(string $method, object $model = null, object $permission = null)
        {
               switch ($method) {

@@ -3,21 +3,16 @@
 namespace App\Services\Spatie\Roles;
 
 use App\Services\Spatie\Config;
+use App\Services\Spatie\Service;
 
-class RoleService implements RoleServiceInterface
+class RoleService extends Service implements RoleServiceInterface
 {
-       public $model;
-       public $role;
        /**
-        * get model id
+        * Instance Role
         *
-        * @param object $model
-        * @return void
+        * @var [type]
         */
-       public function getModel(object $model): object 
-       {
-              return $model->id;
-       }
+       public $role;
 
        /**
         * get role id
@@ -28,18 +23,6 @@ class RoleService implements RoleServiceInterface
        public function getRole(object $role): object
        {
               return $role->id;
-       }
-
-       /**
-        * set model property
-        *
-        * @param object $model
-        * @return void
-        */
-       public function model(object $model): object
-       {
-              $this->model = $model;
-              return $this;
        }
 
        /**
