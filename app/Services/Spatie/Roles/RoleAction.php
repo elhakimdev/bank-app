@@ -10,16 +10,7 @@ use App\Services\Spatie\Roles\RoleService;
 
 class RoleAction extends RoleService
 {
-       /**
-        * used trait 
-        */
        use ApiResponser;
-
-       /**
-        * Spatie Actions Service Instance
-        *
-        * @var object
-        */
        public object $spatie;
 
        /**

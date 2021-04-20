@@ -7,66 +7,32 @@ use App\Services\Spatie\Service;
 
 class PermissionService extends Service implements PermissionServiceInterface
 {
-       /**
-        * Instance A permission
-        *
-        * @var [type]
-        */
-       public $permission;
 
-       /**
-        * 
-        *
-        * @param object $permission
-        * @return object
-        */
+       public $permission;
        public function getPermission(object $permission): object
        {
               return $permission->id;
        }
-
-       /**
-        * 
-        *
-        * @param object $model
-        * @return object
-        */
        public function model(object $model): object
        {
               $this->model = $model;
               return $this;
        }
-
-       /**
-        * Undocumented function
-        *
-        * @param object $permission
-        * @return object
-        */
        public function permission(object $permission): object
        {
               $this->permission = $permission;
               return $this;
        }
-
-       /**
-        * 
-        *
-        * @param string $method
-        * @param object $model
-        * @param object $permission
-        * @return void
-        */
        public function handler(string $method, object $model = null, object $permission = null)
        {
               switch ($method) {
-                     case Config::ASSIGN_DIRECT_PERMISSION:
+                     case Config::ASSIGN_PERMISSION:
                             if ($model == null && $permission == null) {
                                    return $this->model->givePermissionTo($this->permission);
                             }
                             return $model->givePermissionTo($this->getPermission($permission));
                             break;
-                     case Config::REMOVE_DIRECT_PERMISSION:
+                     case Config::REMOVE_PERMISSION:
                             if ($model == null && $permission == null) {
                                    return $this->model->revokePermissionTo($this->permission);
                             }

@@ -20,13 +20,13 @@ class PermissionAction extends PermissionService
        {
               return $this->spatie->model($model)->permission($permission);
        }
-       public function handleAssignDirectPermission(object $model, object $permission): JsonResponse
+       public function handleAssignPermission(object $model, object $permission): JsonResponse
        {
-              return $this->success($this->prepare($model, $permission)->handler(Config::ASSIGN_DIRECT_PERMISSION), "succes asssign this user for given direct permission", Response::HTTP_CREATED);
+              return $this->success($this->prepare($model, $permission)->handler(Config::ASSIGN_PERMISSION), "succes asssign this user for given direct permission", Response::HTTP_CREATED);
        }
-       public function handleRemoveDirectPermission(object $model, object $permission): JsonResponse
+       public function handleRemovePermission(object $model, object $permission): JsonResponse
        {
-              return $this->success($this->prepare($model, $permission)->handler(Config::REMOVE_DIRECT_PERMISSION), "succes remove this user for given direct permission", Response::HTTP_OK);
+              return $this->success($this->prepare($model, $permission)->handler(Config::REMOVE_PERMISSION), "succes remove this user for given direct permission", Response::HTTP_OK);
        }
        public function handleSyncDirectPermisssion(object $model, object $permission): JsonResponse
        {

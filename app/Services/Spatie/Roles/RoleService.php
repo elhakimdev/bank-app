@@ -7,43 +7,16 @@ use App\Services\Spatie\Service;
 
 class RoleService extends Service implements RoleServiceInterface
 {
-       /**
-        * Instance Role
-        *
-        * @var [type]
-        */
        public $role;
-
-       /**
-        * get role id
-        *
-        * @param object $role
-        * @return void
-        */
        public function getRole(object $role): object
        {
               return $role->id;
        }
-
-       /**
-        * set role property
-        *
-        * @param object $role
-        * @return void
-        */
        public function role(object $role): object
        {
               $this->role = $role;
               return $this;
        }
-       /**
-        * Handler actions
-        *
-        * @param string $method
-        * @param object $model
-        * @param object $role
-        * @return object
-        */
        public function handler(string $method, object $model = null, object $role = null): object
        {
               switch ($method) {
