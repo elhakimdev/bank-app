@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\Actions\Permissions\PermissionActionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Resources\RoleController;
@@ -15,8 +16,10 @@ Route::prefix('resources')->group(function () {
     Route::resource('/policy/roles',        RoleController::class);
     Route::resource('/users',               UserController::class);
     Route::prefix('actions')->group(function () {
-        Route::post('role/assign-user/{user}/role/{role}', [RoleActionController::class, 'assignUser'])->name('assign.user.to.given.role');
-        Route::post('role/remove-user/{user}/role/{role}', [RoleActionController::class, 'removeUser'])->name('remove.user.to.given.role');
+        Route::post('role/assign-user/{user}/role/{role}',                      [RoleActionController::class, 'assignUser'])->name('assign.user.to.given.role');
+        Route::post('role/remove-user/{user}/role/{role}',                      [RoleActionController::class, 'removeUser'])->name('remove.user.to.given.role');
+        Route::post('permission/assign-user/{user}/permission/{permission}',    [PermissionActionController::class, 'assignDirectPermission'])->name('assign.user.to.given.direct-permission                      ');
+        Route::post('permission/remove-user/{user}/permission/{permission}',    [PermissionActionController::class, 'removeDirectPermission'])->name('remove.user.to.given.direct-permission                      ');
         Route::post('role/assign-permission');
     });
 });

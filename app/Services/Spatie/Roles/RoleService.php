@@ -6,13 +6,15 @@ use App\Services\Spatie\Config;
 
 class RoleService implements RoleServiceInterface
 {
+       public $model;
+       public $role;
        /**
         * get model id
         *
         * @param object $model
         * @return void
         */
-       public function getModel(object $model)
+       public function getModel(object $model): object 
        {
               return $model->id;
        }
@@ -23,7 +25,7 @@ class RoleService implements RoleServiceInterface
         * @param object $role
         * @return void
         */
-       public function getRole(object $role)
+       public function getRole(object $role): object
        {
               return $role->id;
        }
@@ -46,7 +48,7 @@ class RoleService implements RoleServiceInterface
         * @param object $role
         * @return void
         */
-       public function role($role)
+       public function role(object $role): object
        {
               $this->role = $role;
               return $this;
@@ -57,9 +59,9 @@ class RoleService implements RoleServiceInterface
         * @param string $method
         * @param object $model
         * @param object $role
-        * @return void
+        * @return object
         */
-       public function handler(string $method, object $model = null, object $role = null)
+       public function handler(string $method, object $model = null, object $role = null): object
        {
               switch ($method) {
                      case Config::ASSIGN_USER:

@@ -6,6 +6,7 @@ use App\Traits\ApiResponser;
 use App\Services\Spatie\Config;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use App\Services\Spatie\Roles\RoleService;
 
 class RoleAction extends RoleService
 {
@@ -17,9 +18,9 @@ class RoleAction extends RoleService
        /**
         * Spatie Actions Service Instance
         *
-        * @var [type]
+        * @var object
         */
-       public $spatie;
+       public object $spatie;
 
        /**
         * Role Action Service constructor
@@ -48,7 +49,7 @@ class RoleAction extends RoleService
         *
         * @param object $model
         * @param object $role
-        * @return JsonResponse
+        * @return \Illuminate\Http\JsonResponse
         */
        public function handleAssignUser(object $model, object $role): JsonResponse
        {
@@ -60,10 +61,22 @@ class RoleAction extends RoleService
         *
         * @param object $model
         * @param object $role
-        * @return JsonResponse
+        * @return \Illuminate\Http\JsonResponse
         */
        public function handleRemoveUser(object $model, object $role): JsonResponse
        {
               return $this->success($this->prepare($model, $role)->handler(Config::REMOVE_USER), "succes remove this user for given role", Response::HTTP_OK);
+       }
+
+       /**
+        * Handler synchronize user for this role
+        *
+        * @param object $model
+        * @param object $role
+        * @return JsonResponse
+        */
+       public function handleSyncUser(object $model, object $role): JsonResponse
+       {
+              return $this->success($this->prepare($model, $role)->handler(Config::SYNCHRONIZE_USER), "Succes Sync User", Response::HTTP_OK);
        }
 }

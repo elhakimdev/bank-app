@@ -10,42 +10,57 @@ use App\Services\Spatie\Roles\RoleAction;
 
 class RoleActionController extends Controller
 {
+    /**
+     * Instance new Role Action 
+     *
+     * @var Object
+     */
+    public object $role;
+
+    /**
+     * Construct this action object
+     *
+     * @param \App\Services\Spatie\Roles\RoleAction $action
+     */
     public function __construct(RoleAction $action)
     {
-        $this->action = $action;
+        $this->role = $action;
     }
     /**
      * assign user to given role
+     * 
      *
-     * @param User $user
-     * @param Role $role
+     * @param \App\Models\User $user
+     * @param \App\Models\Authorization\Role $role
      * @return \Illuminate\Http\JsonResponse
      */
     public function assignUser(User $user, Role $role): JsonResponse
     {
-        return $this->action->handleAssignUser($user, $role);
+        // $role = new RoleAction(new RoleService());
+        // $role->handleAssignUser()
+        return $this->role->handleAssignUser($user, $role);
     }
     /**
      * remove assigned user on this role
      *
-     * @param User $user
-     * @param Role $role
+     * @param \App\Models\User $user
+     * @param \App\Models\Authorization\Role $role
      * @return  \Illuminate\Http\JsonResponse
      */
     public function removeUser(User $user, Role $role): JsonResponse
     {
-        return $this->action->handleRemoveUser($user, $role);
+        return $this->role->handleRemoveUser($user, $role);
     }
     /**
      * syncrhonize role for this user
      * 
      *
-     * @param User $user
-     * @param Role $role
-     * @return JsonResponse
+     * @param \App\Models\User $user
+     * @param \App\Models\Authorization\Role $role
+     * @return \Illuminate\Http\JsonResponse
      */
     public function syncUser(User $user, Role $role): JsonResponse
     {
-        return $this->success($this->prepare($user, $role)->handler('sync-user'));
+        return $this->role->handleSyncUser($user, $role);
     }
 }
