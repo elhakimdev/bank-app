@@ -2,11 +2,11 @@
 
 namespace App\Services\Spatie\Permissions;
 
-use App\Services\Spatie\Config;
-use App\Services\Spatie\Permissions\PermissionService;
 use App\Traits\ApiResponser;
+use App\Services\Spatie\Config;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use App\Services\Spatie\Permissions\PermissionService;
 
 class PermissionAction extends PermissionService
 {
@@ -22,14 +22,14 @@ class PermissionAction extends PermissionService
        }
        public function handleAssignPermission(object $model, object $permission): JsonResponse
        {
-              return $this->success($this->prepare($model, $permission)->handler(Config::ASSIGN_PERMISSION), "succes asssign this user for given direct permission", Response::HTTP_CREATED);
+              return $this->success($this->prepare($model, $permission)->handler(Config::ASSIGN_PERMISSION), "succes asssign permission", Response::HTTP_CREATED);
        }
        public function handleRemovePermission(object $model, object $permission): JsonResponse
        {
-              return $this->success($this->prepare($model, $permission)->handler(Config::REMOVE_PERMISSION), "succes remove this user for given direct permission", Response::HTTP_OK);
+              return $this->success($this->prepare($model, $permission)->handler(Config::REMOVE_PERMISSION), "succes remove permission", Response::HTTP_OK);
        }
        public function handleSyncDirectPermisssion(object $model, object $permission): JsonResponse
        {
-              return $this->success($this->prepare($model, $permission)->handler(Config::SYNCHRONIZE_DIRECT_PERMISSION), "succes sync this user for given direct permission", Response::HTTP_OK);
+              return $this->success($this->prepare($model, $permission)->handler(Config::SYNCHRONIZE_DIRECT_PERMISSION), "succes sync permission", Response::HTTP_OK);
        }
 }
