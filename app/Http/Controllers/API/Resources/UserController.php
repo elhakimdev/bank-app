@@ -53,7 +53,7 @@ class UserController extends Controller
      */
     public function show(User $user): JsonResponse
     {
-        return $this->success(new UserResource($user->load('roles.permissions', 'permissions')), $this->message('show', 'User'), Response::HTTP_OK);
+        return $this->success(new UserResource($user->load('roles.permissions', 'permissions', 'person')), $this->message('show', 'User'), Response::HTTP_OK);
     }
 
     /**

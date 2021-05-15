@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Resources;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PersonCollection;
+use App\Http\Resources\PersonResource;
 use App\Models\Person;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
@@ -51,7 +52,7 @@ class PersonController extends Controller
      */
     public function show(Person $person)
     {
-        //
+        return $this->success(new PersonResource($person->load('user')), $this->message('show', 'Person'), Response::HTTP_OK);
     }
 
     /**

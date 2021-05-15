@@ -16,14 +16,16 @@ class PersonResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            "id"                        => $this->id,
-            "firstname"                 => $this->firstname,
-            "lastname"                  => $this->lastname,
-            "fullname"                  => $this->firstname . ' ' . $this->lastname,
-            "created_at"                => date_format($this->created_at, 'D-M-Y h:i:s'),
-            "updated_at"                => date_format($this->updated_at, 'D-M-Y h:i:s'),
-            "relations"                 => [
-                "user" => $this->user
+            "id"                         => $this->id,
+            "first_name"                 => $this->firstname,
+            "last_name"                  => $this->lastname,
+            "full_name"                  => $this->firstname . ' ' . $this->lastname,
+            "phone_number"               => $this->phone,
+            "address"                    => $this->address,
+            "created_at"                 => date_format($this->created_at, 'D-M-Y h:i:s'),
+            "updated_at"                 => date_format($this->updated_at, 'D-M-Y h:i:s'),
+            "relations"                  => [
+                "user"                   => new UserResource($this->whenLoaded('user'))
             ]
         ];
     }

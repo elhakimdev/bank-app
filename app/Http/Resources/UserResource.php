@@ -23,7 +23,7 @@ class UserResource extends JsonResource
             "created_at"            => date_format($this->created_at, 'D-M-Y h:i:s'),
             "updated_at"            => date_format($this->updated_at, 'D-M-Y h:i:s'),
             "relations"             => [
-                "person"            => $this->person,
+                "person"            => new PersonResource($this->whenLoaded('person')),
                 "roles"             => new RoleCollection($this->whenLoaded('roles')),
                 "permisssions"      => new PermissionCollection($this->whenLoaded('permissions')),
             ]
