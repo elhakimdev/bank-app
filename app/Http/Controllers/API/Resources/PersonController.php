@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Api\Resources;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\PersonCollection;
-use App\Http\Resources\PersonResource;
 use App\Models\Person;
-use App\Traits\ApiResponser;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\PersonRequest;
+use App\Http\Resources\PersonResource;
+use App\Http\Resources\PersonCollection;
+use App\Traits\ApiResponser as JsonResponser;
 use Symfony\Component\HttpFoundation\Response;
 
 class PersonController extends Controller
 {
-    use ApiResponser;
+    use JsonResponser;
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +20,8 @@ class PersonController extends Controller
      */
     public function index()
     {
-        return $this->success(new PersonCollection(Person::all()), $this->message('index', 'User'), Response::HTTP_OK);
+        return JsonResponser::success(new PersonCollection(Person::all()), $this->message('index', 'User'), Response::HTTP_OK);
+        // return $this->success(new PersonCollection(Person::all()), $this->message('index', 'User'), Response::HTTP_OK);
     }
 
     /**
@@ -39,9 +40,9 @@ class PersonController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PersonRequest $request)
     {
-        //
+        return JsonResponser::success(Person::create($request->validated()), $this->message('created', 'Person'), Response::HTTP_CREATED);
     }
 
     /**
@@ -52,7 +53,7 @@ class PersonController extends Controller
      */
     public function show(Person $person)
     {
-        return $this->success(new PersonResource($person->load('user')), $this->message('show', 'Person'), Response::HTTP_OK);
+        return JsonResponser::success(new PersonResource($person->load('user', 'user.roles.permissions')), $this->message('show', 'Person'), Response::HTTP_OK);
     }
 
     /**
@@ -73,11 +74,10 @@ class PersonController extends Controller
      * @param  \App\Models\Person  $person
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Person $person)
+    public function update(PersonRequest $request, Person $person)
     {
-        //
+        return JsonResponser::success($person->update($request->validated()), $this->message('update', 'Person'), Response::HTTP_OK);
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -86,6 +86,6 @@ class PersonController extends Controller
      */
     public function destroy(Person $person)
     {
-        //
+        return JsonResponser::success($person->destroy($person->id), $this->message('destroy', 'Person'), Response::HTTP_OK);
     }
 }

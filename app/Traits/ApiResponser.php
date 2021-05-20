@@ -17,7 +17,7 @@ trait ApiResponser
         * @param integer $code
         * @return \Illuminate\Http\JsonResponse
         */
-       protected function success($data, string $message = null, int $code = null): JsonResponse
+       public static  function success($data, string $message = null, int $code = null): JsonResponse
        {
               return response()->json([
                      "Status"      => "Success",
