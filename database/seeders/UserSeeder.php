@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -32,5 +33,8 @@ class UserSeeder extends Seeder
             "email" => "super-admin@example.com"
         ]);
         $superAdmin->assignRole(['super-admin']);
+
+        // create user iwith profiles
+        User::factory()->has(Profile::factory())->count(20)->create();
     }
 }

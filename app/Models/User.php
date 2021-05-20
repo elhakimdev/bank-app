@@ -52,4 +52,8 @@ class User extends Authenticatable
     {
         return $query->where('name', '=', $parameter)->get();
     }
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
 }
