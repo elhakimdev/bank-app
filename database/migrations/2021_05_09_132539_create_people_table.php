@@ -21,6 +21,8 @@ class CreatePeopleTable extends Migration
             $table->string('address');
             $table->string('phone');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
