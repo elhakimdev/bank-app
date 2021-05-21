@@ -3,9 +3,29 @@
 namespace App\Models\Address;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class City extends Model
+
+class City extends \App\Models\Address\Base
 {
     use HasFactory;
-}
+    protected $table = 'cities';
+    protected $casts = [
+        'meta' => 'array',
+    ];
+    public function province()
+    {
+        return $this->belongsTo(Province::class, 'province_code');
+    }
+    public function districts()
+    {
+        return $this->hasMany(District::class, 'city_code');
+    }
+    public function villages()
+    {
+        return $this->hasManyThrough(Village::class, District::class, 'city_code', 'district_code');
+    }
+    public function getProvinceNameAttribute()
+    {
+        return $this->province->name;
+    }
+}   

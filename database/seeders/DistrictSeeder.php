@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Support\Carbon;
+use Database\Seeders\Locations\CsvToArray;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 
 class DistrictSeeder extends Seeder
@@ -13,6 +16,19 @@ class DistrictSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $now = Carbon::now();
+        $csv = new CsvToArray();
+        $file = __DIR__ . '/locations/csv/districts.csv';
+        $header = ['code', 'city_code', 'name', 'lat', 'long'];
+        $data = $csv->csv_to_array($file, $header);
+        $data = array_map(function ($arr) use ($now) {
+            $arr['meta'] = json_encode(['lat' => $arr['lat'], 'long' => $arr['long']]);
+            unset($arr['lat'], $arr['long']);
+            return $arr + ['created_at' => $now, 'updated_at' => $now];
+        }, $data);
+        $collection = collect($data);
+        foreach ($collection->chunk(50) as $chunk) {
+            DB::table('districts')->insert($chunk->toArray());
+        }
     }
 }
