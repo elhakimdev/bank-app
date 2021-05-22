@@ -21,7 +21,7 @@ class ProfileResource extends JsonResource
             "last_name"             => $this->last_name,
             "full_name"             => $this->first_name . " " . $this->last_name,
             "gender"                => $this->gender,
-            "address"               => $this->address,
+            "address"               => $this->address . " " . $this->profileAddress->address_detail,
             "phone_number"          => $this->phone_number,
             "created_at"            => date_format($this->created_at, 'D-M-Y h:i:s'),
             "updated_at"            => date_format($this->updated_at, 'D-M-Y h:i:s'),

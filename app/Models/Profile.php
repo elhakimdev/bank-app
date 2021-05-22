@@ -16,8 +16,17 @@ class Profile extends Model
         'address',
         'phone_number'
     ];
+    protected $appends = ['Fullname'];
+    public function getFullnameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');   
+    }
+    public function profileAddress()
+    {
+        return $this->hasOne(ProfileAddress::class, 'profile_id');
     }
 }

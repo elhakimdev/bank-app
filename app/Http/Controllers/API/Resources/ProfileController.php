@@ -53,7 +53,7 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-        return JsonResponseApiHandler::success(new ProfileResource($profile->load('user', 'user.roles.permissions')), $this->message('show', 'Profile'), Response::HTTP_OK);
+        return JsonResponseApiHandler::success(new ProfileResource($profile->load('user', 'profileAddress', 'user.roles.permissions')), $this->message('show', 'Profile'), Response::HTTP_OK);
     }
 
     /**
