@@ -18,7 +18,8 @@ class Base extends Model
     public function scopeSearch($query, string $keyword)
     {
         if ($keyword) {
-            $query->where('name', 'like', $keyword . "%");
+            $query->where('name', 'LIKE', $keyword . "%")
+                ->orWhere('name', 'LIKE', "% " . $keyword . "%");
         }
     }
 }

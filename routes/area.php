@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 Route::prefix('indonesia')->group(function () {
        Route::prefix('provinces')->group(function () {
-              // return $request->fullUrl();
               Route::get('/search', function (Request $request) {
                      $qs = $request->fullUrl();
                      $qs = explode('?', $qs);
@@ -15,7 +14,6 @@ Route::prefix('indonesia')->group(function () {
                      $param = explode('=', $qs);
                      $indonesia = new IndonesiaService();
                      return $indonesia->search($param[1])->allProvinces();
-                     // return $param[1];
               });
               Route::get('/', function (IndonesiaService $indonesia) {
                      return $indonesia->paginateProvinces();
@@ -25,6 +23,14 @@ Route::prefix('indonesia')->group(function () {
               });
        });
        Route::prefix('cities')->group(function () {
+              Route::get('/search', function (Request $request) {
+                     $qs           = $request->fullUrl();
+                     $qs           = explode('?', $qs);
+                     $qs           = $qs[1];
+                     $param        = explode('=', $qs);
+                     $indonesia    = new IndonesiaService();
+                     return $indonesia->search($param[1])->allCities();
+              });
               Route::get('/', function (IndonesiaService $indonesia) {
                      return $indonesia->paginateCities();
               });
@@ -33,6 +39,14 @@ Route::prefix('indonesia')->group(function () {
               });
        });
        Route::prefix('districts')->group(function () {
+              Route::get('/search', function (Request $request) {
+                     $qs           = $request->fullUrl();
+                     $qs           = explode('?', $qs);
+                     $qs           = $qs[1];
+                     $param        = explode('=', $qs);
+                     $indonesia    = new IndonesiaService();
+                     return $indonesia->search($param[1])->allDistricts();
+              });
               Route::get('/', function (IndonesiaService $indonesia) {
                      return $indonesia->paginateDistricts();
               });
@@ -41,6 +55,14 @@ Route::prefix('indonesia')->group(function () {
               });
        });
        Route::prefix('villages')->group(function () {
+              Route::get('/search', function (Request $request) {
+                     $qs           = $request->fullUrl();
+                     $qs           = explode('?', $qs);
+                     $qs           = $qs[1];
+                     $param        = explode('=', $qs);
+                     $indonesia    = new IndonesiaService();
+                     return $indonesia->search($param[1])->allVillages();
+              });
               Route::get('/', function (IndonesiaService $indonesia) {
                      return $indonesia->paginateVillages();
               });
