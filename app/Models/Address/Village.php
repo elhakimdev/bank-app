@@ -11,7 +11,7 @@ class Village extends \App\Models\Address\Base
     protected $casts = [
         'meta' => 'array',
     ];
-    protected $appends = ['DistrictName', 'CityName', 'ProvinceName'];
+    // protected $appends = ['DistrictName', 'CityName', 'ProvinceName'];
     public function district()
     {
         return $this->belongsTo(District::class, 'district_code', 'code');

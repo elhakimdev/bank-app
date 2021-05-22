@@ -13,30 +13,6 @@ use App\Services\Administrative\IndonesiaService;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/indonesia/provinces', function (IndonesiaService $indonesia) {
-    return $indonesia->allProvinces();
-});
-Route::get('/indonesia/provinces/{province}', function ($province, IndonesiaService $indonesia) {
-    return $indonesia->findProvince($province, ['cities', 'districts.villages']);
-});
-Route::get('/indonesia/cities', function (IndonesiaService $indonesia) {
-    return $indonesia->allCities();
-});
-Route::get('/indonesia/cities/{city}', function ($city, IndonesiaService $indonesia) {
-    return $indonesia->findCity($city, ['districts.villages']);
-});
-Route::get('/indonesia/districts', function (IndonesiaService $indonesia) {
-    return $indonesia->allDistricts();
-});
-Route::get('/indonesia/districts/{district}', function ($ditrict, IndonesiaService $indonesia) {
-    return $indonesia->findDistrict($ditrict, ['villages']);
-});
-Route::get('/indonesia/villages', function (IndonesiaService $indonesia) {
-    return $indonesia->allVillages();
-});
-Route::get('/indonesia/villages/{village}', function ($village, IndonesiaService $indonesia) {
-    return $indonesia->findVillage($village, []);
-});
 Route::prefix('resources')->group(function () {
     Route::resource('/policy/permissions',  PermissionController::class);
     Route::resource('/policy/roles',        RoleController::class);

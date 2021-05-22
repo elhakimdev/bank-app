@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 class BaseService
 {
        protected $search;
-       public function search(string $location): self
+       public function search(string $location)
        {
               $this->search  = strtoupper($location);
               return $this;
