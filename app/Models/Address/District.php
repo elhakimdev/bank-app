@@ -11,6 +11,7 @@ class District extends \App\Models\Address\Base
     protected $casts = [
         'meta' => 'array',
     ];
+    protected $appends = ['CityName', 'ProvinceName'];
     public function city()
     {
         return $this->belongsTo(City::class, 'city_code', 'code');

@@ -12,6 +12,7 @@ class City extends \App\Models\Address\Base
     protected $casts = [
         'meta' => 'array',
     ];
+    protected $appends = ['ProvinceName'];
     public function province()
     {
         return $this->belongsTo(Province::class, 'province_code', 'code');
