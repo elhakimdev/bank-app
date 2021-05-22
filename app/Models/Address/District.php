@@ -13,11 +13,11 @@ class District extends \App\Models\Address\Base
     ];
     public function city()
     {
-        return $this->belongsTo(City::class, 'city_code');
+        return $this->belongsTo(City::class, 'city_code', 'code');
     }
     public function Villages()
     {
-        return $this->hasMany(Village::class, 'district_code');
+        return $this->hasMany(Village::class, 'district_code', 'code');
     }
     public function getCityNameAttribute()
     {

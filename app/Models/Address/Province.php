@@ -13,10 +13,10 @@ class Province extends \App\Models\Address\Base
     ];
     public function cities()
     {
-        return $this->hasMany(City::class, 'province_code');
+        return $this->hasMany(City::class, 'province_code', 'code');
     }
     public function districts()
     {
-        return $this->hasManyThrough(District::class, City::class, 'province_code', 'city_code');
+        return $this->hasManyThrough(District::class, City::class, 'province_code', 'city_code', 'code', 'code');
     }
 }

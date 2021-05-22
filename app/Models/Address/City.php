@@ -14,11 +14,11 @@ class City extends \App\Models\Address\Base
     ];
     public function province()
     {
-        return $this->belongsTo(Province::class, 'province_code');
+        return $this->belongsTo(Province::class, 'province_code', 'code');
     }
     public function districts()
     {
-        return $this->hasMany(District::class, 'city_code');
+        return $this->hasMany(District::class, 'city_code', 'code');
     }
     public function villages()
     {

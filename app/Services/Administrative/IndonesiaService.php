@@ -83,6 +83,8 @@ class IndonesiaService extends BaseService implements IndonesiaServiceInterface
        }
        public function findProvince(int $provinceId, ?array $with = null): object
        {
+              // $a = Province::find($provinceId);
+              // return $a->load('cities');
               $with = (array) $with;
               if ($with) {
                      $withVillages = array_search('villages', $with);
@@ -148,4 +150,5 @@ class IndonesiaService extends BaseService implements IndonesiaServiceInterface
               }
               return Village::find($villageId);
        }
+       
 }
