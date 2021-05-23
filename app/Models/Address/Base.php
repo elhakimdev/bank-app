@@ -9,7 +9,7 @@ class Base extends Model
 {
     public $timestamps = false;
     protected $keyType = 'string';
-    // protected $searchableColumns = ['code', 'name'];
+    protected $searchableColumns = ['code', 'name'];
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
@@ -17,9 +17,8 @@ class Base extends Model
     }
     public function scopeSearch($query, string $keyword)
     {
-        if ($keyword) {
-            $query->where('name', 'LIKE', $keyword . "%")
-                ->orWhere('name', 'LIKE', "% " . $keyword . "%");
+        if ($keyword && $this->searchableColumns) {
+            $query->whereLike($this->searchableColumns, $keyword);
         }
     }
 }

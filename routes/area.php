@@ -1,11 +1,11 @@
 <?php
 
-use App\Http\Controllers\API\Actions\Address\SetProfileAddressController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Services\Administrative\IndonesiaService;
-use Illuminate\Http\Request;
+use App\Http\Controllers\API\Actions\Address\SetProfileAddressController;
 
-Route::post('address/create', SetProfileAddressController::class);
+Route::post('profile/address/create/area', SetProfileAddressController::class);
 Route::prefix('indonesia')->group(function () {
        Route::prefix('provinces')->group(function () {
               Route::get('/search', function (Request $request) {
