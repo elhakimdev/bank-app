@@ -45,7 +45,7 @@ class ProfileAddress extends Model
     }
 
     /**
-     * Split an array into new array of each index exploded address by double ":"
+     * Split an array of new arry attribute into new array of each index exploded address by double ":"
      *
      * @param array $attribute
      * @param integer $index
@@ -70,22 +70,51 @@ class ProfileAddress extends Model
         return ltrim($this->splitArrayAttribute($this->explodedAddresAtribute(), $index)[1]);
     }
 
+    /**
+     * Get Province attribute
+     *
+     * @return string
+     */
     public function getProvinceAttribute(): string
     {
         return $this->attributeIndex(3);
     }
+
+    /**
+     * Get City attribute
+     *
+     * @return string
+     */
     public function getCityAttribute(): string
     {
         return $this->attributeIndex(2);
     }
+
+    /**
+     * Get Distric attribute
+     *
+     * @return string
+     */
     public function getDistrictAttribute(): string
     {
         return $this->attributeIndex(1);
     }
+
+    /**
+     * Get Village attribute
+     *
+     * @return string
+     */
     public function getVillageAttribute(): string
     {
         return $this->attributeIndex(0);
     }
+
+    /**
+     * Get Country attribute
+     *
+     * @return string
+     */
     public function getCountryAttribute(): string
     {
         return $this->attributeIndex(4);
