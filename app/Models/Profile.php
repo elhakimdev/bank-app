@@ -16,7 +16,7 @@ class Profile extends Model
         'address',
         'phone_number'
     ];
-    protected $appends = ['Fullname'];
+    protected $appends = ['Fullname', 'Fulladdress'];
     public function getFullnameAttribute()
     {
         return $this->first_name . ' ' . $this->last_name;
@@ -28,5 +28,12 @@ class Profile extends Model
     public function profileAddress()
     {
         return $this->hasOne(ProfileAddress::class, 'profile_id');
+    }
+    public function getFulladdressAttribute()
+    {
+        if (is_null($this->profileAddress)) {
+            return "";
+        }
+        return $this->profileAddress['address_detail'];
     }
 }
