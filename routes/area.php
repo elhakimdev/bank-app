@@ -4,7 +4,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Services\Administrative\IndonesiaService;
 use App\Http\Controllers\API\Actions\Address\SetProfileAddressController;
+use App\Models\ProfileAddress;
 
+Route::get('profileaddress/{id}', function ($id) {
+       return ProfileAddress::find($id);
+});
 Route::post('profile/address/create/area', SetProfileAddressController::class);
 Route::prefix('indonesia')->group(function () {
        Route::prefix('provinces')->group(function () {
