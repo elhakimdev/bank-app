@@ -43,22 +43,21 @@ class ResourceService implements ResourceServiceInterface
 
        /**
         * Handle to check if the foreign key is already exist an same with $request->profile_id
-        *
+        * cek apakah di tabel profile address belum ada record dengan profile_id / $request->id?
+        * jika true, atau belum ada FK yang sama maka return $request->profile_id;
+        * jika fase, atau sudah ada FK yang sama maka return false;
         * @param Request $request
         * @return boolean
         */
        public function hasSameAlreadyExistsForeignKey(Request $request)
        {
-              // cek apakah di tabel profile address belum ada record dengan profile_id / $request->id?
-              // jika true, atau belum ada FK yang sama maka return $request->profile_id;
-              // jika fase, atau sudah ada FK yang sama maka return false;
               if (ProfileAddress::where('profile_id', $request->profile_id)->doesntExist()) {
                      return $request->profile_id;
               }
               return false;
        }
        /**
-        * Generate  an new array payload from valid sanitize request
+        * Handle enerate a new array payload from valid sanitize request to storig or updating resources
         *
         * @param \Illuminate\Http\Request $request
         * @param integer $address
