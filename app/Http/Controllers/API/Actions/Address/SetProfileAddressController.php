@@ -28,6 +28,9 @@ class SetProfileAddressController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return ProfileAddress::create($this->service->createPayloadFromRequest($request));
+        if ($this->service->hasSameAlreadyExistsForeignKey($request)) {
+            return ProfileAddress::create($this->service->createPayloadFromRequest($request));
+        }
+        return json_encode(response("The given profile_id already exists", 422));
     }
 }
