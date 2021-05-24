@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 interface ResourceServiceInterface
 {
-       public function defineRequest(Request $request);
-       public function createPayloadFromRequest(Request $request);
+       public function store(Request $request);
+       public function update(int $address, Request $request);
+       public function delete(int $addres);
 }
