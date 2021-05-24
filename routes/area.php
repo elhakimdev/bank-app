@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Actions\Address\DestroyProfileAddressController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Services\Administrative\IndonesiaService;
@@ -12,6 +13,7 @@ Route::get('profileaddress/{id}', function ($id) {
 });
 Route::post('profile/address/create/area', SetProfileAddressController::class);
 Route::post('profile/address/update/area/{address}', updateProfileAddressController::class);
+Route::delete('profile/address/delete/area/{address}', DestroyProfileAddressController::class);
 Route::prefix('indonesia')->group(function () {
        Route::prefix('provinces')->group(function () {
               Route::get('/search', function (Request $request) {
