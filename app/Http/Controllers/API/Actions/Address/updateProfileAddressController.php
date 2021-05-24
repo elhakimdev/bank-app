@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Actions\Address;
 
+use App\Services\Administrative\ResourceService;
 use App\Models\Address\Village;
 use App\Models\Address\District;
 use App\Models\Address\City;
@@ -12,6 +13,11 @@ use Illuminate\Http\Request;
 
 class updateProfileAddressController extends Controller
 {
+    public $service;
+    public function __construct(ResourceService $service)
+    {
+        $this->service = $service;
+    }
     /**
      * Handle the incoming request.
      *
@@ -20,16 +26,7 @@ class updateProfileAddressController extends Controller
      */
     public function __invoke(int $address, Request $request)
     {
-        $data = ProfileAddress::find($address);
-        $kelurahan  = Village::find($request->desa);
-        $kecamatan  = District::find($request->kecamatan);
-        $kabupaten  = City::find($request->kabupaten);
-        $provinsi   = Province::find($request->provinsi);
-        $final_address = "Desa : " . $kelurahan->name . ", Kecamatan : " . $kecamatan->name . ", " . $kabupaten->name . ", Provinsi : " . $provinsi->name . ", Indonesia";
-        $payload = [
-            'profile_id'        => $data->profile->id,
-            'address_detail'    => $final_address
-        ];
-        return $data->update($payload);
+        $data       = ProfileAddress::find($address);
+        return $data->update($this->service->createPayloadFromRequest($request, $address));
     }
 }
