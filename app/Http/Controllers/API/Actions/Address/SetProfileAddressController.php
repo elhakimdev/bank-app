@@ -11,6 +11,7 @@ use App\Models\Profile;
 use App\Models\ProfileAddress;
 use App\Models\User;
 use App\Services\Administrative\ResourceService;
+use Exception;
 use Illuminate\Http\Request;
 
 class SetProfileAddressController extends Controller
@@ -29,9 +30,6 @@ class SetProfileAddressController extends Controller
      */
     public function __invoke(Request $request)
     {
-        if ($this->service->hasSameAlreadyExistsForeignKey($request)) {
-            return ProfileAddress::create($this->service->createPayloadFromRequest($request));
-        }
-        return json_encode(response("The given profile_id already exists", 422));
+        return $this->service->store($request);
     }
 }

@@ -26,7 +26,6 @@ class updateProfileAddressController extends Controller
      */
     public function __invoke(int $address, Request $request)
     {
-        $data       = ProfileAddress::find($address);
-        return $data->update($this->service->createPayloadFromRequest($request, $address));
+        return $this->service->update($address, $request);
     }
 }

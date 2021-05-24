@@ -13,11 +13,21 @@ use App\Services\Administrative\IndonesiaService;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+/**
+ * -----------------------------------------------------------------------------
+ * Routes For CRUD RESOURCES
+ * -----------------------------------------------------------------------------
+ */
 Route::prefix('resources')->group(function () {
     Route::resource('/policy/permissions',  PermissionController::class);
     Route::resource('/policy/roles',        RoleController::class);
     Route::resource('/users',               UserController::class);
     Route::resource('/profiles',            ProfileController::class);
+    /**
+     * -----------------------------------------------------------------------------
+     * Routes For CRUD ACTIONS
+     * -----------------------------------------------------------------------------
+     */
     Route::prefix('actions')->group(function () {
         Route::post('role/assign-user/{user}/role/{role}',                      [RoleActionController::class, 'assignUser'])->name('role.assign.user');
         Route::post('role/remove-user/{user}/role/{role}',                      [RoleActionController::class, 'removeUser'])->name('role.remove.user');
