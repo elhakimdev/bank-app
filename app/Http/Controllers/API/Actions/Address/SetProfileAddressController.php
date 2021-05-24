@@ -10,10 +10,16 @@ use App\Models\Address\Village;
 use App\Models\Profile;
 use App\Models\ProfileAddress;
 use App\Models\User;
+use App\Services\Administrative\ResourceService;
 use Illuminate\Http\Request;
 
 class SetProfileAddressController extends Controller
 {
+    public $service;
+    public function __construct(ResourceService $service)
+    {
+        $this->service = $service;
+    }
     /**
      * Handle the incoming request.
      *
@@ -22,15 +28,6 @@ class SetProfileAddressController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $kelurahan  = Village::find($request->desa);
-        $kecamatan  = District::find($request->kecamatan);
-        $kabupaten  = City::find($request->kabupaten);
-        $provinsi   = Province::find($request->provinsi);
-        $final_address = "Desa : " . $kelurahan->name . ", Kecamatan : " . $kecamatan->name . ", " . $kabupaten->name . ", Provinsi : " . $provinsi->name . ", Indonesia";
-        $payload = [
-            'profile_id'        => $request->profile_id,
-            'address_detail'    => $final_address
-        ];
-        return ProfileAddress::create($payload);
+        return ProfileAddress::create($this->service->createPayloadFromRequest($request));
     }
 }
