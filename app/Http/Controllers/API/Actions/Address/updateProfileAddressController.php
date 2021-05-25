@@ -3,20 +3,15 @@
 namespace App\Http\Controllers\Api\Actions\Address;
 
 use App\Services\Administrative\ResourceService;
-use App\Models\Address\Village;
-use App\Models\Address\District;
-use App\Models\Address\City;
-use App\Models\Address\Province;
 use App\Http\Controllers\Controller;
-use App\Models\ProfileAddress;
 use Illuminate\Http\Request;
 
 class updateProfileAddressController extends Controller
 {
-    public $service;
-    public function __construct(ResourceService $service)
+    public $resource;
+    public function __construct(ResourceService $resource)
     {
-        $this->service = $service;
+        $this->resource = $resource;
     }
     /**
      * Handle the incoming request.
@@ -26,6 +21,6 @@ class updateProfileAddressController extends Controller
      */
     public function __invoke(int $address, Request $request)
     {
-        return $this->service->update($address, $request);
+        return $this->resource->update($address, $request);
     }
 }

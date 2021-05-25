@@ -11,14 +11,10 @@ use App\Services\Spatie\Permissions\PermissionService;
 class PermissionAction extends PermissionService
 {
        use ApiResponser;
-       public object $spatie;
+       public $spatie;
        public function __construct(PermissionService $service)
        {
               $this->spatie = $service;
-       }
-       public function prepare(object $model, object $permission): object
-       {
-              return $this->spatie->model($model)->permission($permission);
        }
        public function handleAssignPermission(object $model, object $permission): JsonResponse
        {

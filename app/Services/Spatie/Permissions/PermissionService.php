@@ -9,21 +9,21 @@ class PermissionService extends Service implements PermissionServiceInterface
 {
 
        public $permission;
-       public function getPermission(object $permission): object
-       {
-              return $permission->id;
-       }
-       public function model(object $model): object
-       {
-              $this->model = $model;
-              return $this;
-       }
-       public function permission(object $permission): object
+       public function permission(object $permission): self
        {
               $this->permission = $permission;
               return $this;
        }
-       public function handler(string $method, object $model = null, object $permission = null)
+       public function getPermission(object $permission): object
+       {
+              return $permission->id;
+       }
+       public function model(object $model): self
+       {
+              $this->model = $model;
+              return $this;
+       }
+       public function handler(string $method, object $model = null, object $permission = null): self
        {
               switch ($method) {
                      case Config::ASSIGN_PERMISSION:
@@ -48,5 +48,9 @@ class PermissionService extends Service implements PermissionServiceInterface
                             return 'no act';
                             break;
               }
+       }
+       public function prepare(object $model, object $permission): self
+       {
+              return $this->model($model)->permission($permission);
        }
 }

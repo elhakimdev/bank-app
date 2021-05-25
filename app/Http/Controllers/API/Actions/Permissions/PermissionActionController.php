@@ -11,22 +11,10 @@ use Illuminate\Http\JsonResponse;
 
 class PermissionActionController extends Controller
 {
-    public object $permission;
+    public  $permission;
     public function __construct(PermissionAction $action)
     {
         $this->permission = $action;
-    }
-    public function assignDirectPermission(User $user, Permission $permission): JsonResponse
-    {
-        return $this->permission->handleAssignDirectPermission($user, $permission);
-    }
-    public function removeDirectPermission(User $user, Permission $permission): JsonResponse
-    {
-        return $this->permission->handleRemoveDirectPermission($user, $permission);
-    }
-    public function assignSyncPermission(User $user, Permission $permission): JsonResponse
-    {
-        return $this->permission->handleSyncDirectPermission($user, $permission);
     }
     public function assignRolePermission(Role $role, Permission $permission): JsonResponse
     {

@@ -2,24 +2,16 @@
 
 namespace App\Http\Controllers\API\Actions\Address;
 
-use App\Http\Controllers\Controller;
-use App\Models\Address\City;
-use App\Models\Address\District;
-use App\Models\Address\Province;
-use App\Models\Address\Village;
-use App\Models\Profile;
-use App\Models\ProfileAddress;
-use App\Models\User;
 use App\Services\Administrative\ResourceService;
-use Exception;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class SetProfileAddressController extends Controller
 {
-    public $service;
-    public function __construct(ResourceService $service)
+    public $resource;
+    public function __construct(ResourceService $resource)
     {
-        $this->service = $service;
+        $this->resource = $resource;
     }
     /**
      * Handle the incoming request.
@@ -30,6 +22,6 @@ class SetProfileAddressController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return $this->service->store($request);
+        return $this->resource->store($request);
     }
 }

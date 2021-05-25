@@ -2,25 +2,23 @@
 
 namespace App\Http\Controllers\Api\Actions\Address;
 
-use App\Http\Controllers\Controller;
-use App\Models\ProfileAddress;
-use Illuminate\Http\Request;
 use App\Services\Administrative\ResourceService;
+use App\Http\Controllers\Controller;
+
 class DestroyProfileAddressController extends Controller
 {
-    public $service;
-    public function __construct(ResourceService $service)
+    public $resource;
+    public function __construct(ResourceService $resource)
     {
-        $this->service = $service;
+        $this->resource = $resource;
     }
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function __invoke(int $addres)
     {
-        $this->service->delete($addres);
+        $this->resource->delete($addres);
     }
 }
