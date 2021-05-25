@@ -5,7 +5,13 @@ namespace App\Services\Spatie\Roles;
 use App\Models\User;
 
 /**
- * Role Service interface
+ * -------------------------------------
+ * Interface Role Service
+ * -------------------------------------
+ * Abstract structure for spatie role service class
+ * 
+ * @author ElhakimDev <abdulelhakim68@gmail.com>
+ * @version 1.0.0
  */
 interface RoleServiceInterface
 {

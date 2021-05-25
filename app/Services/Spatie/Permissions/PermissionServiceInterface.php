@@ -4,6 +4,15 @@ namespace App\Services\Spatie\Permissions;
 
 use App\Models\User;
 
+/**
+ * -------------------------------------
+ * Interface Permission Service
+ * -------------------------------------
+ * Abstract structure for spatie permission service class
+ * 
+ * @author ElhakimDev <abdulelhakim68@gmail.com>
+ * @version 1.0.0
+ */
 interface PermissionServiceInterface
 {
        public function permission(object $permission): self;

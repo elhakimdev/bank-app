@@ -10,7 +10,7 @@ use App\Services\Spatie\Roles\RoleAction;
 
 class RoleActionController extends Controller
 {
-    public object $role;
+    public $role;
     public function __construct(RoleAction $action)
     {
         $this->role = $action;
