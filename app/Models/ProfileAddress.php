@@ -35,6 +35,17 @@ class ProfileAddress extends Model
     }
 
     /**
+     * Check is Profie_ID Is Nt Exist on model
+     *
+     * @param [type] $query
+     * @param [type] $request
+     * @return void
+     */
+    public function scopeIsNotExist($query, $request)
+    {
+        return $query->where('profile_id', $request->profile_id)->doesntExist();
+    }
+    /**
      * Convert the attributes into an array 
      *
      * @return array

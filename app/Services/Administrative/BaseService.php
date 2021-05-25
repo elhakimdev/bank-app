@@ -66,7 +66,7 @@ class BaseService
         */
        public function isNotExistForeignKey(Request $request)
        {
-              if (ProfileAddress::where('profile_id', $request->profile_id)->doesntExist()) {
+              if (ProfileAddress::IsNotExist($request)) {
                      return $request->profile_id;
               }
               return false;
