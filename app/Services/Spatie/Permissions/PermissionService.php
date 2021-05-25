@@ -2,6 +2,7 @@
 
 namespace App\Services\Spatie\Permissions;
 
+use App\Models\User;
 use App\Services\Spatie\Config;
 use App\Services\Spatie\Service;
 
@@ -14,7 +15,7 @@ class PermissionService extends Service implements PermissionServiceInterface
               $this->permission = $permission;
               return $this;
        }
-       public function getPermission(object $permission): object
+       public function getPermission(object $permission): self
        {
               return $permission->id;
        }
@@ -23,7 +24,7 @@ class PermissionService extends Service implements PermissionServiceInterface
               $this->model = $model;
               return $this;
        }
-       public function handler(string $method, object $model = null, object $permission = null): self
+       public function handler(string $method, object $model = null, object $permission = null): User
        {
               switch ($method) {
                      case Config::ASSIGN_PERMISSION:

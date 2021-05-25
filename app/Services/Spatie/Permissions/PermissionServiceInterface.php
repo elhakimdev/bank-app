@@ -2,11 +2,13 @@
 
 namespace App\Services\Spatie\Permissions;
 
+use App\Models\User;
+
 interface PermissionServiceInterface
 {
-       public function permission(object $permission);
-       public function getPermission(object $permission);
-       public function model(object $model);
-       public function handler(string $method, object $model, object $permission);
-       public function prepare(object $model, object $permission);
+       public function permission(object $permission): self;
+       public function getPermission(object $permission): self;
+       public function model(object $model): self;
+       public function handler(string $method, object $model, object $permission): User;
+       public function prepare(object $model, object $permission): self;
 }

@@ -2,22 +2,29 @@
 
 namespace App\Services\Spatie\Roles;
 
+use App\Models\Authorization\Role;
+use App\Models\User;
 use App\Services\Spatie\Config;
 use App\Services\Spatie\Service;
 
 class RoleService extends Service implements RoleServiceInterface
 {
        public $role;
-       public function getRole(object $role): object
-       {
-              return $role->id;
-       }
-       public function role(object $role): object
+       public function role(object $role): self
        {
               $this->role = $role;
               return $this;
        }
-       public function handler(string $method, object $model = null, object $role = null): object
+       public function getRole(object $role): self
+       {
+              return $role->id;
+       }
+       public function model(object $model): self
+       {
+              $this->model = $model;
+              return $this;
+       }
+       public function handler(string $method, object $model = null, object $role = null): User
        {
               switch ($method) {
                      case Config::ASSIGN_USER:
@@ -42,5 +49,9 @@ class RoleService extends Service implements RoleServiceInterface
                             return 'no action ';
                             break;
               }
+       }
+       public function prepare(object $model, object $role): self
+       {
+              return $this->model($model)->role($role);
        }
 }
