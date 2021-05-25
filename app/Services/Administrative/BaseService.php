@@ -2,7 +2,6 @@
 
 namespace App\Services\Administrative;
 
-use Illuminate\Support\Collection;
 use App\Models\Address\Village;
 use App\Models\Address\District;
 use App\Models\Address\City;
@@ -11,7 +10,17 @@ use App\Models\ProfileAddress;
 use Illuminate\Http\Request;
 class BaseService
 {
+       /**
+        * @var search
+        */
        protected $search;
+
+       /**
+        * Search model
+        *
+        * @param string $location
+        * @return void
+        */
        public function search(string $location)
        {
               $this->search  = strtoupper($location);
@@ -23,7 +32,7 @@ class BaseService
         * @param \Illuminate\Http\Request $request
         * @return array
         */
-       public function defineRequest(Request $request): array
+       public function __collect(Request $request): array
        {
               $kelurahan  = Village::find($request->desa);
               $kecamatan  = District::find($request->kecamatan);
@@ -42,9 +51,9 @@ class BaseService
         * @param \Illuminate\Http\Request $request
         * @return string
         */
-       public function getResultString(Request $request): string
+       public function __results(Request $request): string
        {
-              return "DESA : " . $this->defineRequest($request)['kelurahan'] . ", KECAMATAN : " . $this->defineRequest($request)['kecamatan'] . ", " . $this->defineRequest($request)['kabupaten'] . ", PROVINSI : " . $this->defineRequest($request)['provinsi'] . ", INDONESIA";
+              return "DESA : " . $this->__collect($request)['kelurahan'] . ", KECAMATAN : " . $this->__collect($request)['kecamatan'] . ", " . $this->__collect($request)['kabupaten'] . ", PROVINSI : " . $this->__collect($request)['provinsi'] . ", INDONESIA";
        }
 
        /**
@@ -55,7 +64,7 @@ class BaseService
         * @param Request $request
         * @return boolean
         */
-       public function hasSameAlreadyExistsForeignKey(Request $request)
+       public function isNotExistForeignKey(Request $request)
        {
               if (ProfileAddress::where('profile_id', $request->profile_id)->doesntExist()) {
                      return $request->profile_id;
@@ -69,18 +78,18 @@ class BaseService
         * @param integer $address
         * @return array
         */
-       public function createPayloadFromRequest(Request $request, int $address = null): array
+       public function payloads(Request $request, int $address = null): array
        {
               if ($request->profile_id === null) {
                      $model                      = ProfileAddress::find($address);
                      return [
                             'profile_id'        => $model->profile->id,
-                            'address_detail'    => $this->getResultString($request)
+                            'address_detail'    => $this->__results($request)
                      ];
               }
               return [
-                     'profile_id'        => $this->hasSameAlreadyExistsForeignKey($request),
-                     'address_detail'    => $this->getResultString($request)
+                     'profile_id'        => $this->isNotExistForeignKey($request),
+                     'address_detail'    => $this->__results($request)
               ];
        }
 }

@@ -2,35 +2,24 @@
 
 namespace App\Services\Administrative;
 
+use App\Exceptions\isNotExistException;
 use App\Models\ProfileAddress;
 use Illuminate\Http\Request;
-use Exception;
 
 class ResourceService extends BaseService implements ResourceServiceInterface
 {
        /**
-        * Storing payload from request data
+        * Storing payload from request data, and thrown an Exception when result is false
         *
         * @param Request $request
         * @return void
         */
        public function store(Request $request)
        {
-              try {
-                     if ($this->hasSameAlreadyExistsForeignKey($request)) {
-                            return ProfileAddress::create($this->createPayloadFromRequest($request));
+              if ($this->isNotExistForeignKey($request)) {
+                     return ProfileAddress::create($this->payloads($request));
                      }
-                     throw new Exception('Given profile_id : ' . $request->profile_id . ' has been already exist', 422);
-              } catch (Exception $e) {
-                     return response(
-                            json_encode([
-                                   "status"    => "UNPROCESSABLE ENTITY",
-                                   "code"      => $e->getCode(),
-                                   "message"   => $e->getMessage()
-                            ]),
-                            422
-                     );
-              }
+              throw new isNotExistException();
        }
 
        /**
@@ -43,7 +32,7 @@ class ResourceService extends BaseService implements ResourceServiceInterface
        public function update(int $address, Request $request)
        {
               $data       = ProfileAddress::find($address);
-              return $data->update($this->createPayloadFromRequest($request, $address));
+              return $data->update($this->payloads($request, $address));
        }
 
        /**
