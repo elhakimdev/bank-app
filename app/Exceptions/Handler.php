@@ -68,12 +68,10 @@ class Handler extends ExceptionHandler
                 $errors         = collect($e->errors($request));
                 return $this->error('Unprocessable Entity', 'You can not perform this action ', 422, $errors);
             }
-            if ($e instanceof QueryException) {
-                $errors        =  collect([
-                    'profile_id'    => $e->getBindings()[0],
-                    'detail'        => 'can not add or update in child rows'
-                ]);
-                return $this->error('INTERNAL SERVER ERROR', 'SQLSTATE[23000]:Integrity constraint violation', 500, $errors);
+            if ($e instanceof isExistOnParentModelException) {
+                // abort(422);
+                $errors        =  collect($e->errros($request));
+                return $this->error('Unprocessable Entity', 'Integrity constraint violation n this request', 422, $errors);
             }
         };
         return parent::render($request, $e);

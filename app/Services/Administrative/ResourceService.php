@@ -2,6 +2,7 @@
 
 namespace App\Services\Administrative;
 
+use App\Exceptions\isExistOnParentModelException;
 use App\Exceptions\isNotExistException;
 use App\Models\ProfileAddress;
 use Illuminate\Http\Request;
@@ -16,14 +17,13 @@ class ResourceService extends BaseService implements ResourceServiceInterface
         */
        public function store(Request $request)
        {
-              // if ($this->isProfileExist($request)) {
-                     // return 'adaprofile';
+              if ($this->isProfileExist($request)) {
                      if ($this->isNotExistForeignKey($request)) {
                             return ProfileAddress::create($this->payloads($request));
                             }
                      throw new isNotExistException();
-              // }
-              // return 'throw query constraint exception';
+              }
+              throw new isExistOnParentModelException('Unprocessable Entity', 422);
        }
 
        /**
