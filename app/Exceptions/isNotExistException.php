@@ -16,7 +16,7 @@ class isNotExistException extends Exception
     public function errors(Request $request): array
     {
         return [
-            'profile_id' => 'the given profile_id : ' . $request->profile_id . ' already exist',
+            'profile_id' => 'the given profile_id : ' . $request->profile_id . ' already exist'
         ];
     }
 }

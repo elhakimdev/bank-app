@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class ProfileAddress extends Model
 {
@@ -35,16 +37,17 @@ class ProfileAddress extends Model
     }
 
     /**
-     * Check is Profie_ID Is Nt Exist on model
+     *  Check is Profie_ID Is Nt Exist on model
      *
-     * @param [type] $query
-     * @param [type] $request
-     * @return void
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param \Illuminate\Http\Request $request
+     * @return boolean
      */
-    public function scopeIsNotExist($query, $request)
+    public function scopeIsNotExist(Builder $query, Request $request): bool
     {
         return $query->where('profile_id', $request->profile_id)->doesntExist();
     }
+
     /**
      * Convert the attributes into an array 
      *

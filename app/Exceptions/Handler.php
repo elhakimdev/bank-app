@@ -7,6 +7,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -66,6 +67,13 @@ class Handler extends ExceptionHandler
             if ($e instanceof isNotExistException) {
                 $errors         = collect($e->errors($request));
                 return $this->error('Unprocessable Entity', 'You can not perform this action ', 422, $errors);
+            }
+            if ($e instanceof QueryException) {
+                $errors        =  collect([
+                    'profile_id'    => $e->getBindings()[0],
+                    'detail'        => 'can not add or update in child rows'
+                ]);
+                return $this->error('INTERNAL SERVER ERROR', 'SQLSTATE[23000]:Integrity constraint violation', 500, $errors);
             }
         };
         return parent::render($request, $e);

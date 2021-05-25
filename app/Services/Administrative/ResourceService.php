@@ -16,10 +16,14 @@ class ResourceService extends BaseService implements ResourceServiceInterface
         */
        public function store(Request $request)
        {
-              if ($this->isNotExistForeignKey($request)) {
-                     return ProfileAddress::create($this->payloads($request));
-                     }
-              throw new isNotExistException();
+              // if ($this->isProfileExist($request)) {
+                     // return 'adaprofile';
+                     if ($this->isNotExistForeignKey($request)) {
+                            return ProfileAddress::create($this->payloads($request));
+                            }
+                     throw new isNotExistException();
+              // }
+              // return 'throw query constraint exception';
        }
 
        /**

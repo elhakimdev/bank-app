@@ -7,6 +7,7 @@ use App\Models\Address\District;
 use App\Models\Address\City;
 use App\Models\Address\Province;
 use App\Models\ProfileAddress;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 class BaseService
 {
@@ -68,6 +69,13 @@ class BaseService
        {
               if (ProfileAddress::IsNotExist($request)) {
                      return $request->profile_id;
+              }
+              return false;
+       }
+       public function isProfileExist(Request $request): bool
+       {
+              if (Profile::find($request->profile_id)) {
+                     return true;
               }
               return false;
        }
