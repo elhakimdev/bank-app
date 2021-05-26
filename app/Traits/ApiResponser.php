@@ -32,7 +32,7 @@ trait ApiResponser
         * @param integer $code
         * @return  \Illuminate\Http\JsonResponse
         */
-       protected static function error(string $status, string $message = null, int $code, &$errors = null): JsonResponse
+       public static function error(string $status, string $message = null, int $code, &$errors = null): JsonResponse
        {
               return response()->json(["Status"      => $status,
                      "Message"     => $message,

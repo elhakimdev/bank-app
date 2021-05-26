@@ -7,11 +7,16 @@ use App\Http\Controllers\API\Resources\UserController;
 use App\Http\Controllers\API\Resources\PermissionController;
 use App\Http\Controllers\API\Actions\Roles\RoleActionController;
 use App\Http\Controllers\API\Actions\Permissions\PermissionActionController;
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\Api\Resources\ProfileController;
 use App\Services\Administrative\IndonesiaService;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+Route::prefix('auth')->group(function () {
+    Route::post('/login',   [AuthController::class, 'login']);
+    Route::post('/logout',  [AuthController::class, 'logout'])->middleware('auth:sanctum');
 });
 /**
  * -----------------------------------------------------------------------------
