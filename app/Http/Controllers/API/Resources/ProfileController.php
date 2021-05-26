@@ -21,7 +21,11 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return JsonResponseApiHandler::success(new ProfileCollection(Profile::all()), $this->message('index', 'Profile'), Response::HTTP_OK);
+        return JsonResponseApiHandler::success(
+            new ProfileCollection(Profile::all()),
+            $this->message('index', 'Profile'),
+            Response::HTTP_OK
+        );
     }
 
     /**
@@ -42,7 +46,11 @@ class ProfileController extends Controller
      */
     public function store(ProfileRequest $request)
     {
-        return JsonResponseApiHandler::success(Profile::create($request->validated()), $this->message('store', 'Profile'), Response::HTTP_OK);
+        return JsonResponseApiHandler::success(
+            Profile::create($request->validated()),
+            $this->message('store', 'Profile'),
+            Response::HTTP_OK
+        );
     }
 
     /**
@@ -53,7 +61,15 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-        return JsonResponseApiHandler::success(new ProfileResource($profile->load('user', 'profileAddress', 'user.roles.permissions')), $this->message('show', 'Profile'), Response::HTTP_OK);
+        return JsonResponseApiHandler::success(
+            new ProfileResource($profile->load(
+                'user',
+                'profileAddress',
+                'user.roles.permissions'
+            )),
+            $this->message('show', 'Profile'),
+            Response::HTTP_OK
+        );
     }
 
     /**
@@ -76,7 +92,11 @@ class ProfileController extends Controller
      */
     public function update(ProfileRequest $request, Profile $profile)
     {
-        return JsonResponseApiHandler::success($profile->update($request->validated()), $this->message('update', 'Profile'), Response::HTTP_OK);
+        return JsonResponseApiHandler::success(
+            $profile->update($request->validated()),
+            $this->message('update', 'Profile'),
+            Response::HTTP_OK
+        );
     }
 
     /**
@@ -87,6 +107,10 @@ class ProfileController extends Controller
      */
     public function destroy(Profile $profile)
     {
-        return JsonResponseApiHandler::success($profile->delete(), $this->message('delete', 'Profile'), Response::HTTP_OK);
+        return JsonResponseApiHandler::success(
+            $profile->delete(),
+            $this->message('delete', 'Profile'),
+            Response::HTTP_OK
+        );
     }
 }

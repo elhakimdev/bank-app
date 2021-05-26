@@ -2,7 +2,7 @@
 
 namespace App\Exceptions;
 
-use App\Traits\ApiResponser;
+use App\Traits\ApiResponser as API;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -13,7 +13,7 @@ use Throwable;
 
 class Handler extends ExceptionHandler
 {
-    use ApiResponser;
+    use API;
     /**
      * A list of the exception types that are not reported.
      *
@@ -49,28 +49,28 @@ class Handler extends ExceptionHandler
     {
         if ($request->expectsJson()) {
             if ($e instanceof AuthenticationException) {
-                return $this->error('', 'Unauthenticated action', 401);
+                return API::error('', 'Unauthenticated action', 401);
             }
             if ($e instanceof AuthorizationException) {
-                return $this->error('', 'This action is unauthorized', 403);
+                return API::error('', 'This action is unauthorized', 403);
             }
             if ($e instanceof ModelNotFoundException) {
                 $modelID        = $e->getIds();
                 $model          = explode('\\', $e->getModel());
                 $getmessage     = 'Entry : ' . end($modelID) . ' for Model : ' . end($model) . ' Was Not Found';
-                return $this->error('HTTP NOT FOUND', 'Sorry we can not perform this action', 404, $getmessage);
+                return API::error('HTTP NOT FOUND', 'Sorry we can not perform this action', 404, $getmessage);
             }
             if ($e instanceof ValidationException) {
                 $errors         = collect($e->errors());
-                return $this->error('Unprocessable Entity', 'Please, check your input and go back with valid data', 422, $errors);
+                return API::error('Unprocessable Entity', 'Please, check your input and go back with valid data', 422, $errors);
             }
             if ($e instanceof isNotExistException) {
                 $errors         = collect($e->errors($request));
-                return $this->error('Unprocessable Entity', 'You can not perform this action ', 422, $errors);
+                return API::error('Unprocessable Entity', 'You can not perform this action ', 422, $errors);
             }
             if ($e instanceof isExistOnParentModelException) {
                 $errors        =  collect($e->errros($request));
-                return $this->error('Unprocessable Entity', 'Integrity constraint violation n this request', 422, $errors);
+                return API::error('Unprocessable Entity', 'Integrity constraint violation n this request', 422, $errors);
             }
         };
         return parent::render($request, $e);
