@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Resources;
+namespace App\Http\Controllers\API\Resources;
 
 use App\Models\Profile;
 use App\Http\Controllers\Controller;

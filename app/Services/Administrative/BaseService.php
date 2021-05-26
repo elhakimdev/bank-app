@@ -20,7 +20,6 @@ class BaseService
         * Search model
         *
         * @param string $location
-        * @return void
         */
        public function search(string $location)
        {

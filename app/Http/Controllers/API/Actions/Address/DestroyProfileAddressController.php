@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Actions\Address;
+namespace App\Http\Controllers\API\Actions\Address;
 
 use App\Services\Administrative\ResourceService;
 use App\Http\Controllers\Controller;

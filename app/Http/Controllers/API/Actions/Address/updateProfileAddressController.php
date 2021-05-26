@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api\Actions\Address;
+namespace App\Http\Controllers\API\Actions\Address;
 
 use App\Services\Administrative\ResourceService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class updateProfileAddressController extends Controller
+class UpdateProfileAddressController extends Controller
 {
     public $resource;
     public function __construct(ResourceService $resource)
