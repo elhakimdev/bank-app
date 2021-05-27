@@ -10,13 +10,20 @@
 - [x] setup & create profile address resource
 - [x] setup & create role permission management resource
 - [x] setup administrative area API resource
+- [x] setup & install Larave Sanctum for Manage API Tokens
+- [x] setup Laravel Fortify For SPA AUTH
+- [x] setup Auth For RESTFull API with Laravel Sanctum 
+- [x] to do ?   
 ### TO-DO
 ### ROADMAP
 ## HOW TO CONTRIBUTE ?
 - Lets contact me, If youre interested to work togetherwith mee, Im still open for new Member !
 ## SUPPORTED BY :
-**- Laravel Framework**  :  https://github.com/laravel/laravel
-**- Spatie/Laravel-Permission**  :  https://github.com/spatie/laravel-permission
-**- Laravolt/Indonesia**  :  https://github.com/laravolt/indonesia
+- **- Laravel Framework**            :  https://github.com/laravel/laravel
+- **- Laravel Fortify**              :  https://github.com/laravel/laravel
+- **- Laravel Sanctum**              :  https://github.com/laravel/laravel
+- **- Spatie/Laravel-Permission**    :  https://github.com/spatie/laravel-permission
+- **- Spatie/Laravel-ActiviyLog**    :  https://github.com/spatie/laravel-permission
+- **- Laravolt/Indonesia**           :  https://github.com/laravolt/indonesia
  
 
