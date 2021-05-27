@@ -9,10 +9,11 @@ use App\Http\Controllers\API\Actions\Roles\RoleActionController;
 use App\Http\Controllers\API\Actions\Permissions\PermissionActionController;
 use App\Http\Controllers\Api\Resources\ProfileController;
 use App\Http\Controllers\AuthTokenController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
-});
+})->middleware('auth:sanctum');
 /**
  * -----------------------------------------------------------------------------
  * Routes For Authentication Using Token / Bearer 
