@@ -7,23 +7,25 @@ use App\Http\Controllers\API\Resources\UserController;
 use App\Http\Controllers\API\Resources\PermissionController;
 use App\Http\Controllers\API\Actions\Roles\RoleActionController;
 use App\Http\Controllers\API\Actions\Permissions\PermissionActionController;
-use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\Api\Resources\ProfileController;
-use App\Services\Administrative\IndonesiaService;
+use App\Http\Controllers\AuthTokenController;
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::get('/user', function (Request $request) {
     return $request->user();
 });
-Route::prefix('auth')->group(function () {
-    Route::post('/login',   [AuthController::class, 'login']);
-    Route::post('/logout',  [AuthController::class, 'logout'])->middleware('auth:sanctum');
-});
+/**
+ * -----------------------------------------------------------------------------
+ * Routes For Authentication Using Token / Bearer 
+ * -----------------------------------------------------------------------------
+ */
+Route::post('auth/token/login',     [AuthTokenController::class, 'login'])->name('auth.token.login');
+Route::post('auth/token/logout',    [AuthTokenController::class, 'logout'])->name('auth.token.logout')->middleware('auth:sanctum');
 /**
  * -----------------------------------------------------------------------------
  * Routes For CRUD RESOURCES
  * -----------------------------------------------------------------------------
  */
-Route::prefix('resources')->group(function () {
+Route::prefix('resources')->middleware('auth:sanctum')->group(function () {
     Route::resource('/policy/permissions',  PermissionController::class);
     Route::resource('/policy/roles',        RoleController::class);
     Route::resource('/users',               UserController::class);

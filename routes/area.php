@@ -13,12 +13,11 @@ use App\Models\ProfileAddress;
  * GENERAL 
  * -----------------------------------------------------------------------------
  */
-Route::get('profileaddress/{id}', function ($id) {
-       return ProfileAddress::find($id);
-})->middleware('auth:sanctum');
-Route::post('profile/address/create/area', SetProfileAddressController::class)->middleware('auth:sanctum');
-Route::post('profile/address/update/area/{address}', UpdateProfileAddressController::class)->middleware('auth:sanctum');
-Route::delete('profile/address/delete/area/{address}', DestroyProfileAddressController::class)->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->group(function () {
+       Route::post('profile/address/create/area', SetProfileAddressController::class);
+       Route::post('profile/address/update/area/{address}', UpdateProfileAddressController::class);
+       Route::delete('profile/address/delete/area/{address}', DestroyProfileAddressController::class);
+});
 /**
  * -----------------------------------------------------------------------------
  * Routes For Indonesia Services RESTFull API
