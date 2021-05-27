@@ -26,6 +26,7 @@ class AuthTokenController extends Controller
             ]);
         }
         $token = $user->createToken('token-auth')->plainTextToken;
+        activity()->log('Logged In')->causedBy($user);
         return ApiResponser::success([
             'access_token'  => $token,
             'token_type'    => 'bearer'
@@ -35,6 +36,7 @@ class AuthTokenController extends Controller
     {
         $user = $request->user();
         $user->tokens()->delete();
+        activity()->log('Log Out')->causedBy($user);
         return ApiResponser::success($user, 'Logout Successfully', 200);
     }
 }
