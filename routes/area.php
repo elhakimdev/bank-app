@@ -15,16 +15,16 @@ use App\Models\ProfileAddress;
  */
 Route::get('profileaddress/{id}', function ($id) {
        return ProfileAddress::find($id);
-});
-Route::post('profile/address/create/area', SetProfileAddressController::class);
-Route::post('profile/address/update/area/{address}', UpdateProfileAddressController::class);
-Route::delete('profile/address/delete/area/{address}', DestroyProfileAddressController::class);
+})->middleware('auth:sanctum');
+Route::post('profile/address/create/area', SetProfileAddressController::class)->middleware('auth:sanctum');
+Route::post('profile/address/update/area/{address}', UpdateProfileAddressController::class)->middleware('auth:sanctum');
+Route::delete('profile/address/delete/area/{address}', DestroyProfileAddressController::class)->middleware('auth:sanctum');
 /**
  * -----------------------------------------------------------------------------
  * Routes For Indonesia Services RESTFull API
  * -----------------------------------------------------------------------------
  */
-Route::prefix('indonesia')->group(function () {
+Route::prefix('indonesia')->middleware('auth:sanctum')->group(function () {
        Route::prefix('provinces')->group(function () {
               Route::get('/search', function (Request $request) {
                      $qs = $request->fullUrl();

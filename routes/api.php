@@ -11,7 +11,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\Api\Resources\ProfileController;
 use App\Services\Administrative\IndonesiaService;
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::prefix('auth')->group(function () {
