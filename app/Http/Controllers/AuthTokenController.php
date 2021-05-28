@@ -2,52 +2,49 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Traits\ApiResponser;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
+use App\Services\Authentication\AuthenticatedToken;
 
 class AuthTokenController extends Controller
 {
     use ApiResponser;
-    public function login(Request $request)
+    public $authService;
+    /**
+     * Constructor for auth services
+     *
+     * @param AuthenticatedToken $authService
+     */
+    public function __construct(AuthenticatedToken $authService)
     {
-        $request->validate([
-            'email'      => 'required|email',
-            'password'     => 'required',
-        ]);
-        $user = User::where('email', $request->email)->first();
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => [
-                    'The Credentials is incorrect'
-                ]
-            ]);
-        }
-        $token = $user->createToken('token-auth')->plainTextToken;
-        activity('Login')->performedOn($user)->withProperties([
-            'email'         => $user->email,
-            'token-auth'    => $token
-        ])->log('An User Logged In');
-        return ApiResponser::success([
-            'user'                  => $user,
-            'authentication_info'   => [
-                'access_token'  => $token,
-                'token_type'    => 'bearer'
-            ]
-        ], 'Login Successfully', 200);
+        $this->authService = $authService;
     }
-    public function logout(Request $request)
+
+    /**
+     * Log in auth service
+     *
+     * @param LoginRequest $request
+     * @return JsonResponse
+     */
+    public function login(LoginRequest $request): JsonResponse
     {
-        $user = $request->user();
-        $user->tokens()->delete();
-        activity('Logout')->performedOn($user)->withProperties([
-            'user_email'            => $user->email,
-            'occurs_time'           => Carbon::now()
-        ])->log('An User Was Log Out');
-        return ApiResponser::success($user, 'Logout Successfully', 200);
+        return $this->authService->store($request);
+    }
+
+    /**
+     * Log out auth service
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function logout(Request $request): JsonResponse
+    {
+        return $this->authService->destroy($request);
     }
     public function register(Request $request)
     {
